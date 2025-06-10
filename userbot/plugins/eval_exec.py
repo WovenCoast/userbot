@@ -91,7 +91,7 @@ async def aexec(code, b, m, r, d):
     lines = code.split("\n")
     exec(
         "async def __aexec(b, m, r, d): "
-        + "".join(f"\n {"_ = " if i != len(lines) - 1 else ""}{line}" for i, line in enumerate(lines))
+        + "".join(f"\n {'_ = ' if i != len(lines) - 1 else ''}{line}" for i, line in enumerate(lines))
         + "\n result = locals().get('_')"
         + "\n if result is not None: print(result)"
     )
