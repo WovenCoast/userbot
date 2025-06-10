@@ -88,9 +88,12 @@ async def evaluation_func(bot: UserBot, message: Message):
 
 async def aexec(code, b, m, r, d):
     sys.tracebacklimit = 0
+    lines = code.split("\n")
     exec(
         "async def __aexec(b, m, r, d): "
-        + "".join(f"\n {line}" for line in code.split("\n"))
+        + "".join(f"\n {"_ = " if i != len(lines) - 1 else ""}{line}" for i, line in enumerate(lines))
+        + "\n result = locals().get('_')"
+        + "\n if result is not None: print(result)"
     )
     return await locals()["__aexec"](b, m, r, d)
 
